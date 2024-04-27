@@ -1,4 +1,5 @@
 import Icon from "../icons/icon";
+import "./style.css";
 
 const Footer = () => {
   return (

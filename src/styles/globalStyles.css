@@ -59,3 +59,17 @@ section {
   padding: 100px 0;
   max-width: 1000px;
 }
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  color: inherit;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover,
+  &:focus {
+    color: #06b6d4;
+  }
+}

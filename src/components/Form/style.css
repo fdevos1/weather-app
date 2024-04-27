@@ -6,8 +6,6 @@
 
   border-radius: 4px;
 
-  background-color: #0ea5e9;
-
   justify-content: space-between;
   align-items: center;
 
@@ -28,13 +26,13 @@
 .form-header > p {
   font-weight: 600;
   font-size: 24px;
-
-  color: white;
 }
 
 .form-wrapper {
   display: flex;
   flex-direction: column;
+
+  align-items: center;
 
   gap: 8px;
 }
@@ -51,7 +49,7 @@ button {
   border: 1px solid #93c5fd;
   border-radius: 8px;
 
-  padding: 4px;
+  padding: 8px;
 
   color: #0ea5e9;
 }
