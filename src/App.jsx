@@ -1,9 +1,12 @@
+import Layout from "./components/Layout";
 import Homepage from "./pages/Homepage";
 
 function App() {
   return (
     <>
-      <Homepage />
+      <Layout>
+        <Homepage />
+      </Layout>
     </>
   );
 }
