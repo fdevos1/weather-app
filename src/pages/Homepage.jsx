@@ -16,7 +16,7 @@ const Homepage = () => {
 
       <section>
         <div>
-          {weatherInfo ?? weatherInfo ? (
+          {weatherInfo !== undefined ? (
             <Weather weatherInfo={weatherInfo} />
           ) : (
             <></>
