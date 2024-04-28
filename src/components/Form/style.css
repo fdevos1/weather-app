@@ -57,8 +57,6 @@ input {
 }
 
 button {
-  width: 15rem;
-
   background-color: white;
 
   border: 1px solid #93c5fd;
@@ -67,29 +65,4 @@ button {
   padding: 8px;
 
   color: #0ea5e9;
-}
-
-.circular {
-  height: 20px;
-  width: 20px;
-
-  border: 4px solid #06b6d4;
-  border-radius: 50%;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-
-  transition: all 0.5s ease-in;
-  animation-name: rotate;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -80,6 +80,7 @@ h1 {
 }
 
 p,
-span {
+span,
+h1 {
   font-family: "Roboto";
 }

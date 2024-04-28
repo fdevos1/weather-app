@@ -9,9 +9,7 @@ import { formValidation } from "../../helpers/schemaValidation";
 
 import "./style.css";
 
-const Form = ({ setCurrentWeather }) => {
-  const [loading, setLoading] = useState(false);
-
+const Form = ({ setCurrentWeather, setLoading }) => {
   const formikProps = useFormik({
     initialValues: {
       cep: "",
@@ -77,11 +75,7 @@ const Form = ({ setCurrentWeather }) => {
               />
             </div>
             <div className="submit-wrapper">
-              {loading ? (
-                <div className="circular"></div>
-              ) : (
-                <button type="submit">Consultar</button>
-              )}
+              <button type="submit">Consultar</button>
             </div>
           </div>
         </form>

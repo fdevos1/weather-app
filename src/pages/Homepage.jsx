@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Form from "../components/Form";
 import { WeatherContext } from "../context/weatherContext";
 import "./style.css";
 import Weather from "../components/Weather";
 
 const Homepage = () => {
+  const [loading, setLoading] = useState(false);
+
   const { weatherInfo, setWeatherInfo } = useContext(WeatherContext);
 
   return (
@@ -15,14 +17,33 @@ const Homepage = () => {
       </div>
 
       <section>
-        <div>
-          {weatherInfo !== undefined ? (
-            <Weather weatherInfo={weatherInfo} />
+        <div className="homepage-content">
+          {loading !== false ? (
+            <>
+              <div className="circular"></div>
+            </>
           ) : (
-            <></>
+            <>
+              {weatherInfo !== undefined ? (
+                <div className="weather-infos-wrapper">
+                  <Weather weatherInfo={weatherInfo} />
+
+                  <div className="query-buttons">
+                    <button onClick={() => setWeatherInfo(undefined)}>
+                      Nova consulta
+                    </button>
+                    <button>Comparar clima</button>
+                  </div>
+                </div>
+              ) : (
+                <Form
+                  setCurrentWeather={setWeatherInfo}
+                  setLoading={setLoading}
+                />
+              )}
+            </>
           )}
         </div>
-        <Form setCurrentWeather={setWeatherInfo} />
       </section>
     </>
   );

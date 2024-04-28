@@ -5,6 +5,9 @@ import "./style.css";
 const Weather = ({ weatherInfo }) => {
   const { current, location } = weatherInfo;
 
+  const isDay =
+    current.is_day === "yes" ? "title-text-day" : "title-text-night";
+
   const weatherItems = [
     {
       title: "Sensação térmica",
@@ -56,7 +59,7 @@ const Weather = ({ weatherInfo }) => {
             <div className="wrapper">
               <div className="item-header">
                 {item.icon}
-                <p className="item-title">{item.title}</p>
+                <p className={`item-title ${isDay}`}>{item.title}</p>
               </div>
 
               <span className="item-content">{item.content}</span>
@@ -67,18 +70,18 @@ const Weather = ({ weatherInfo }) => {
           <div className="wind wrapper">
             <div className="item-header">
               <Icon name="wind" />
-              <p className="item-title">Vento</p>
+              <p className={`item-title ${isDay}`}>Vento</p>
             </div>
 
             <div className="wind-content">
               <div className="wind-content-wrapper">
-                <p className="item-title">Velocidade do vento</p>
+                <p className={`item-title ${isDay}`}>Velocidade do vento</p>
                 <span className="item-content wind-content">
                   {current.wind_speed}Km/h
                 </span>
               </div>
               <div className="wind-content-wrapper">
-                <p className="item-title">Direção do vento</p>
+                <p className={`item-title ${isDay}`}>Direção do vento</p>
                 <span className="item-content wind-content">
                   {current.wind_degree}&deg; - {current.wind_dir}
                 </span>
