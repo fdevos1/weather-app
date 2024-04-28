@@ -1,11 +1,62 @@
-import { Formik } from "formik";
+import { useState } from "react";
+import { Formik, useFormik } from "formik";
+import axios from "axios";
 
+import InputMask from "../InputMask";
 import Icon from "../icons/icon";
+
+import handleCityQuery from "../../helpers/cityQuery";
 import { formValidation } from "../../helpers/schemaValidation";
+
 import "./style.css";
-import InputMask from "../InputMask/InputMask";
 
 const Form = () => {
+  const [loading, setLoading] = useState(false);
+  const [currentWeather, setCurrentWeather] = useState([]);
+
+  const formikProps = useFormik({
+    initialValues: {
+      cep: "",
+      city: "",
+    },
+    onSubmit: async (data) => {
+      const { city } = data;
+
+      setLoading(true);
+
+      try {
+        const cityQuery = await handleCityQuery({ city });
+        setCurrentWeather(cityQuery);
+        setTimeout(() => setLoading(false), 600);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    },
+    validationSchema: formValidation,
+  });
+
+  const handleBlurOnCEP = async (e) => {
+    let { value } = e.target;
+    value = value.replace(/\D/g, "");
+
+    try {
+      await formValidation.validateAt("cep", { cep: value });
+
+      const fetchCity = await axios.get(
+        `http://viacep.com.br/ws/${value}/json/`
+      );
+
+      const { data } = fetchCity;
+      formikProps.setFieldValue("city", data.localidade);
+    } catch (err) {
+      console.error("CEP Inválido", err.message);
+    }
+  };
+
+  console.log(loading);
+  console.log(currentWeather);
+
   return (
     <>
       <div className="form-container">
@@ -14,47 +65,37 @@ const Form = () => {
           <p>Hello World!</p>
         </div>
 
-        <Formik
-          initialValues={{ cep: "", city: "" }}
-          validationSchema={formValidation}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleSubmit,
-            isSubmitting,
-          }) => (
-            <form>
-              <div className="form-wrapper">
-                <InputMask
-                  placeholder="Insira o CEP desejado"
-                  name="cep"
-                  value={values.cep}
-                  onChange={handleChange}
-                />
-                <p>Ou</p>
-                <input
-                  placeholder="A cidade desejada"
-                  name="city"
-                  value={values.city}
-                  onChange={handleChange}
-                />
-              </div>
-            </form>
-          )}
-        </Formik>
-
         <div>
-          <button>Consultar</button>
+          <p>Resposta consulta</p>
         </div>
+
+        <form onSubmit={formikProps.handleSubmit}>
+          <div className="form-wrapper">
+            <div className="input-wrapper">
+              <InputMask
+                placeholder="Insira o CEP desejado"
+                name="cep"
+                value={formikProps.values.cep}
+                onChange={formikProps.handleChange}
+                onBlur={handleBlurOnCEP}
+              />
+              <p>Ou</p>
+              <input
+                placeholder="A cidade desejada"
+                name="city"
+                value={formikProps.values.city}
+                onChange={formikProps.handleChange}
+              />
+            </div>
+            <div className="submit-wrapper">
+              {loading ? (
+                <div className="circular"></div>
+              ) : (
+                <button type="submit">Consultar</button>
+              )}
+            </div>
+          </div>
+        </form>
       </div>
     </>
   );
