@@ -30,8 +30,6 @@ const Weather = ({ weatherInfo }) => {
     },
   ];
 
-  console.log(current, location);
-
   return (
     <>
       <div
@@ -42,16 +40,16 @@ const Weather = ({ weatherInfo }) => {
         <div className="weather-header">
           <img src={current.weather_icons[0]} alt="weather_icon" />
 
-          <p>{current.weather_descriptions}</p>
+          <span className="weather-desc">{current.weather_descriptions}</span>
         </div>
 
         <div className="weather-content">
           <div className="weather-infos">
-            <p>
+            <p className="weather-location">
               {location.name}, {location.region}, {location.country}
             </p>
 
-            <p className="current-temperature">{current.temperature}&deg;</p>
+            <p className="weather-temperature">{current.temperature}&deg;</p>
           </div>
 
           {weatherItems.map((item) => (
@@ -61,7 +59,7 @@ const Weather = ({ weatherInfo }) => {
                 <p className="item-title">{item.title}</p>
               </div>
 
-              <p className="item-content">{item.content}</p>
+              <span className="item-content">{item.content}</span>
               {item.component && item.component}
             </div>
           ))}
@@ -73,15 +71,17 @@ const Weather = ({ weatherInfo }) => {
             </div>
 
             <div className="wind-content">
-              <div className="content-wrapper">
-                <p className="item-title">Velocidade do vento:</p>
-                <p className="wind-content">{current.wind_speed}Km/h</p>
+              <div className="wind-content-wrapper">
+                <p className="item-title">Velocidade do vento</p>
+                <span className="item-content wind-content">
+                  {current.wind_speed}Km/h
+                </span>
               </div>
-              <div className="content-wrapper">
-                <p className="item-title">Direção do vento:</p>
-                <p className="wind-content">
+              <div className="wind-content-wrapper">
+                <p className="item-title">Direção do vento</p>
+                <span className="item-content wind-content">
                   {current.wind_degree}&deg; - {current.wind_dir}
-                </p>
+                </span>
               </div>
             </div>
           </div>
