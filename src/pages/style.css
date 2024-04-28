@@ -1,0 +1,16 @@
+.homepage-header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.homepage-header > span {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}

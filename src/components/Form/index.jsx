@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import axios from "axios";
 
 import InputMask from "../InputMask";
-import Icon from "../icons/icon";
 
 import handleCityQuery from "../../helpers/cityQuery";
 import { formValidation } from "../../helpers/schemaValidation";
 
 import "./style.css";
 
-const Form = () => {
+const Form = ({ setCurrentWeather }) => {
   const [loading, setLoading] = useState(false);
-  const [currentWeather, setCurrentWeather] = useState([]);
 
   const formikProps = useFormik({
     initialValues: {
@@ -26,7 +24,10 @@ const Form = () => {
 
       try {
         const cityQuery = await handleCityQuery({ city });
-        setCurrentWeather(cityQuery);
+
+        const { location, current } = cityQuery;
+
+        setCurrentWeather({ location, current });
         setTimeout(() => setLoading(false), 600);
       } catch (err) {
         console.error(err);
@@ -54,21 +55,9 @@ const Form = () => {
     }
   };
 
-  console.log(loading);
-  console.log(currentWeather);
-
   return (
     <>
       <div className="form-container">
-        <div className="form-header">
-          <Icon name="clouds" />
-          <p>Hello World!</p>
-        </div>
-
-        <div>
-          <p>Resposta consulta</p>
-        </div>
-
         <form onSubmit={formikProps.handleSubmit}>
           <div className="form-wrapper">
             <div className="input-wrapper">

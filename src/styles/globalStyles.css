@@ -73,3 +73,8 @@ a {
     color: #06b6d4;
   }
 }
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+}

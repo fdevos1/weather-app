@@ -48,6 +48,8 @@
 
 .submit-wrapper {
   height: 40px;
+
+  place-content: center;
 }
 
 input {

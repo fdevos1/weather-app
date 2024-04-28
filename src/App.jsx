@@ -1,11 +1,14 @@
 import Layout from "./components/Layout";
+import WeatherProvider from "./context/weatherContext";
 import Homepage from "./pages/Homepage";
 
 function App() {
   return (
     <>
       <Layout>
-        <Homepage />
+        <WeatherProvider>
+          <Homepage />
+        </WeatherProvider>
       </Layout>
     </>
   );

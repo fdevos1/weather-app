@@ -1,0 +1,41 @@
+.weather-container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.weather-header {
+  display: flex;
+
+  align-items: center;
+  gap: 16px;
+}
+
+.weather-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 40px);
+
+  grid-template-areas:
+    "a a a"
+    "b . c";
+
+  div:first-child {
+    grid-area: a;
+    justify-self: center;
+  }
+}
+
+.feelslike-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 4px 2px;
+}
+
+.feelslike-wrapper > p {
+  font-size: 12px;
+}
